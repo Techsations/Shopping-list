@@ -30,5 +30,17 @@ const viewItem = async(req, res)=>{
     }
 }
 
-module.exports = {addItem, viewItem}
+const del = async(req, res)=>{
+    try {
+        let {i} = req.body;
+        console.log(i);
+        const deleteItem = await userModel.findByIdAndDelete({_id: i})
+        return res.status(201).send({ message: "Item added Successful", status: true })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ message: "Internal server error", status: false })
+    }
+}
+
+module.exports = {addItem, viewItem, del}
 
